@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
+
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "usuario")
@@ -42,6 +43,7 @@ public class Usuario {
     private String email;
 
     @NotNull(message = "{data_nascimento.not.null}")
+    @Column(name = "data_nascimento", nullable = false)
     private Date data_nascimento;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})

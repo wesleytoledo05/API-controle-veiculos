@@ -4,6 +4,7 @@ package com.controle.controlecarros.controler;
 import javax.validation.Valid;
 
 import com.controle.controlecarros.entidades.Usuario;
+import com.controle.controlecarros.error.ResourceNotFoundException;
 import com.controle.controlecarros.repositorio.UsuarioRepositorio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,37 +25,26 @@ public class UsuarioController {
     private UsuarioRepositorio usuarioRepo;
 
 
-    @PostMapping(consumes = {"application/json"})
-    public <cpf, email> ResponseEntity<Usuario> adicionaUsuario(@RequestBody @Valid Usuario usuario){
-        
+    @PostMapping(consumes = { "application/json" })
+    public ResponseEntity<Usuario> adicionaUsuario(@Valid @RequestBody  Usuario usuario){
+          System.out.println("antes");
         try {
+        
             usuarioRepo.save(usuario);
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
           } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            System.out.println("depois");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
           }
-    }
+        }
+
 
     @GetMapping("/{cpf}")
     public ResponseEntity<Usuario> usuarioPorCpf(@PathVariable String cpf){
-      return ResponseEntity.ok().body(usuarioRepo.findByCpf(cpf).get());
+
+      Usuario usuario = usuarioRepo.findByCpf(cpf)
+      .orElseThrow(() -> new ResourceNotFoundException("Nao existe uma pessoa com o CPF = " + cpf));
+
+      return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
-
-    // @RequestMapping({"/veiculo"})
-    // @PostMapping(consumes = {"application/json"})
-    // public ResponseEntity<Veiculo> adicionaVeiculo(@RequestBody @Valid Veiculo veiculo){
-
-    //   try {
-    //     veiculoRepo.save(veiculo);
-    //     return new ResponseEntity<>(veiculo, HttpStatus.CREATED);
-    //   } catch (Exception e) {
-    //     return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    //   }
-    // }
-
-    
-    
-    
-    
-    
 }

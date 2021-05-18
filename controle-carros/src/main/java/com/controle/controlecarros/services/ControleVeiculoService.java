@@ -24,7 +24,6 @@ public class ControleVeiculoService {
         Optional<Usuario> usuarioExistente = usuarioRepo.findByCpf(veiculo.getUsuario().getCpf());
 
         if (usuarioExistente.isPresent()) {
-            
             Veiculo veiculoNovo = new Veiculo();
             veiculoNovo.setUsuario(usuarioExistente.get());
             veiculoNovo.setAno(veiculo.getAno());

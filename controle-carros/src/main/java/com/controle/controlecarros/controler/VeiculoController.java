@@ -24,8 +24,9 @@ public class VeiculoController {
     // private VeiculoRepositorio veiculoRepo;
     
     @PostMapping(consumes = {"application/json"})
-    public ResponseEntity<Veiculo> adicionaVeiculo(@RequestBody @Valid Veiculo veiculo){
+    public ResponseEntity<Veiculo> adicionaVeiculo(@Valid @RequestBody Veiculo veiculo){
         try {
+            System.out.println("antes");
             Veiculo veiculoCar = controleService.postCar(veiculo);
             return new ResponseEntity<>(veiculoCar, HttpStatus.CREATED);
         } catch (Exception e) {

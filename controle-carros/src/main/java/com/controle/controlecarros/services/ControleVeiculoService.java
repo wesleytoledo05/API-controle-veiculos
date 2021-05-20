@@ -2,6 +2,7 @@ package com.controle.controlecarros.services;
 
 import java.util.Optional;
 
+import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.Usuario;
 import com.controle.controlecarros.entidades.Veiculo;
 import com.controle.controlecarros.repositorio.UsuarioRepositorio;
@@ -19,20 +20,25 @@ public class ControleVeiculoService {
     @Autowired
     private VeiculoRepositorio veiculoRepo;
 
+    @Autowired
+    private FipeService fipeService;
+
     public Veiculo postCar(Veiculo veiculo) throws Exception {
 
         Optional<Usuario> usuarioExistente = usuarioRepo.findByCpf(veiculo.getUsuario().getCpf());
 
         if (usuarioExistente.isPresent()) {
             Veiculo veiculoNovo = new Veiculo();
+            Caracteristicas caracteristicas = fipeService.buscaValor(veiculo.getMarca(), veiculo.getModelo_veiculo(), veiculo.getAno());
+
             veiculoNovo.setUsuario(usuarioExistente.get());
-            veiculoNovo.setAno(veiculo.getAno());
-            veiculoNovo.setMarca(veiculo.getMarca());
-            veiculoNovo.setModelo_veiculo(veiculo.getModelo_veiculo());
-            // veiculoNovo.setValor(calculavalor()); ////Aqui entrara a função que calcula o
-            // valor de acordo com a tabela fipe
+            veiculoNovo.setAno(caracteristicas.getAno());
+            veiculoNovo.setMarca(caracteristicas.getMarca());
+            veiculoNovo.setModelo_veiculo(caracteristicas.getModelo());
+            veiculoNovo.setValor(caracteristicas.getValor());
 
             veiculoRepo.save(veiculoNovo);
+            
             usuarioExistente.get().getVeiculo().add(veiculoNovo);
 
             return veiculoNovo;
@@ -41,6 +47,7 @@ public class ControleVeiculoService {
             throw new Exception();
         }
     }
+
 
     public Usuario postUsuario(Usuario usuario) throws Exception {
         Optional<Usuario> usuarioCpfExistente = usuarioRepo.findByCpf(usuario.getCpf());

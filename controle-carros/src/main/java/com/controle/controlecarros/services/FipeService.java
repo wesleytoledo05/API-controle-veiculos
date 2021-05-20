@@ -23,7 +23,7 @@ public interface FipeService {
 											@PathVariable("modelos") String modelos);
 	
 	@GetMapping("marcas/{marca}/modelos/{modelos}/anos/{anos}")
-	public Caracteristicas buscaInfo(@PathVariable("marca") String marca,
+	public Caracteristicas buscaValor(@PathVariable("marca") String marca,
 											@PathVariable("modelos") String modelos,
 											@PathVariable("anos") String anos);
     

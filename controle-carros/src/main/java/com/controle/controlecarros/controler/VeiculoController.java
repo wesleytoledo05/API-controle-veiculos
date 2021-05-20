@@ -75,8 +75,7 @@ public class VeiculoController {
     public ResponseEntity<Caracteristicas> getInfoVeiculo(@PathVariable("marca") String marca,
             @PathVariable("modelos") String modelos, @PathVariable("anos") String anos) {
 
-        Caracteristicas caracteristica = fipeService.buscaInfo(marca, modelos, anos);
-        System.out.println(caracteristica.getValor());
+        Caracteristicas caracteristica = fipeService.buscaValor(marca, modelos, anos );
         return caracteristica != null ? ResponseEntity.ok().body(caracteristica) : ResponseEntity.notFound().build();
     }
 

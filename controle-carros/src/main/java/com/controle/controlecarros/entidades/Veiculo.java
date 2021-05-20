@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "veiculo")
 public class Veiculo {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)
@@ -38,7 +37,7 @@ public class Veiculo {
     @NotEmpty(message = "{ano.Not.Empty}")
     private String ano;
 
-    private Double valor;
+    private String valor;
 
     @ManyToOne
     @JsonBackReference
@@ -86,16 +85,12 @@ public class Veiculo {
         this.usuario = usuario;
     }
 
-    public Double getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor; 
+    public void setValor(String valor) {
+        this.valor = valor;
     }
-
-    //Funcao calcula valor
-    
-
 
 }

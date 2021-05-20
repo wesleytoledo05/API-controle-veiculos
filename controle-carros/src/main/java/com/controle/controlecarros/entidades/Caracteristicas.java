@@ -17,9 +17,6 @@ public class Caracteristicas implements Serializable  {
 
     @JsonProperty("Valor")
     private String valor;
-
-
-
     
     public Caracteristicas() {
     }

@@ -3,6 +3,7 @@ package com.controle.controlecarros.services;
 import java.util.List;
 
 import com.controle.controlecarros.entidades.Caracteristicas;
+import com.controle.controlecarros.entidades.FipeResposta;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface FipeService {
     
     @GetMapping("marcas")
-	public List<Caracteristicas> buscarTodasMarcas();
+	public List<FipeResposta> buscarTodasMarcas();
 	
 	@GetMapping("marcas/{marca}/modelos")
-	public Caracteristicas buscaModelos(@PathVariable("marca") String marca);
+	public FipeResposta buscaModelos(@PathVariable("marca") String marca);
 	
 	@GetMapping("marcas/{marca}/modelos/{modelos}/anos")
-	public List<Caracteristicas> buscaModeloAno(@PathVariable("marca") String marca,
+	public List<FipeResposta> buscaModeloAno(@PathVariable("marca") String marca,
 											@PathVariable("modelos") String modelos);
 	
 	@GetMapping("marcas/{marca}/modelos/{modelos}/anos/{anos}")

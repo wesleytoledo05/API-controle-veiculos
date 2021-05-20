@@ -5,9 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.controle.controlecarros.entidades.Caracteristicas;
+import com.controle.controlecarros.entidades.FipeResposta;
 // import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.Veiculo;
-import com.controle.controlecarros.repositorio.VeiculoRepositorio;
 import com.controle.controlecarros.services.ControleVeiculoService;
 // import com.controle.controlecarros.services.FipeService;
 import com.controle.controlecarros.services.FipeService;
@@ -47,28 +47,28 @@ public class VeiculoController {
     }
 
     @GetMapping("/marcas")
-    public ResponseEntity<List<Caracteristicas>> getTodasMarcas() {
+    public ResponseEntity<List<FipeResposta>> getTodasMarcas() {
 
-        List<Caracteristicas> caracteristica = fipeService.buscarTodasMarcas();
+        List<FipeResposta> fipeRespostas = fipeService.buscarTodasMarcas();
 
-        return caracteristica != null ? ResponseEntity.ok().body(caracteristica) : ResponseEntity.notFound().build();
+        return fipeRespostas != null ? ResponseEntity.ok().body(fipeRespostas) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/marcas/{marca}/modelos")
-    public ResponseEntity<Caracteristicas> getModeloVeiculo(@PathVariable String marca) {
+    public ResponseEntity<FipeResposta> getModeloVeiculo(@PathVariable String marca) {
 
-        Caracteristicas caracteristica = fipeService.buscaModelos(marca);
+        FipeResposta fipeRespostas = fipeService.buscaModelos(marca);
 
-        return caracteristica != null ? ResponseEntity.ok().body(caracteristica) : ResponseEntity.notFound().build();
+        return fipeRespostas != null ? ResponseEntity.ok().body(fipeRespostas) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/marcas/{marca}/modelos/{modelos}/anos")
-    public ResponseEntity<List<Caracteristicas>> getAnoVeiculo(@PathVariable("marca") String marca,
+    public ResponseEntity<List<FipeResposta>> getAnoVeiculo(@PathVariable("marca") String marca,
             @PathVariable("modelos") String modelos) {
 
-        List<Caracteristicas> caracteristica = fipeService.buscaModeloAno(marca, modelos);
+        List<FipeResposta> fipeRespostas = fipeService.buscaModeloAno(marca, modelos);
 
-        return caracteristica != null ? ResponseEntity.ok().body(caracteristica) : ResponseEntity.notFound().build();
+        return fipeRespostas != null ? ResponseEntity.ok().body(fipeRespostas) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/marcas/{marca}/modelos/{modelos}/anos/{anos}")

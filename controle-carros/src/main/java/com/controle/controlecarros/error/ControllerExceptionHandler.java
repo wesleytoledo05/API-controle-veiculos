@@ -1,7 +1,6 @@
 package com.controle.controlecarros.error;
 
 import java.util.Date;
-import java.util.logging.Logger;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

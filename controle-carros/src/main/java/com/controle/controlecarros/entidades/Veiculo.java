@@ -38,7 +38,7 @@ public class Veiculo {
     @NotEmpty(message = "{ano.Not.Empty}")
     private String ano;
 
-        private Double valor;
+    private Double valor;
 
     @ManyToOne
     @JsonBackReference

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import com.controle.controlecarros.entidades.Usuario;
 import com.controle.controlecarros.error.ResourceNotFoundException;
 import com.controle.controlecarros.repositorio.UsuarioRepositorio;
+import com.controle.controlecarros.services.ControleVeiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +25,17 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepositorio usuarioRepo;
 
+    @Autowired
+    private ControleVeiculoService controleService;
+
 
     @PostMapping(consumes = { "application/json" })
     public ResponseEntity<Usuario> adicionaUsuario(@Valid @RequestBody  Usuario usuario){
-          System.out.println("antes");
         try {
-        
-            usuarioRepo.save(usuario);
-            return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+            Usuario usuarioResp = controleService.postUsuario(usuario);
+
+            return new ResponseEntity<>(usuarioResp, HttpStatus.CREATED);
           } catch (Exception e) {
-            System.out.println("depois");
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
           }
         }
@@ -43,7 +45,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> usuarioPorCpf(@PathVariable String cpf){
 
       Usuario usuario = usuarioRepo.findByCpf(cpf)
-      .orElseThrow(() -> new ResourceNotFoundException("Nao existe uma pessoa com o CPF = " + cpf));
+      .orElseThrow(() -> new ResourceNotFoundException("Nao existe um usuário com o CPF = " + cpf));
 
       return new ResponseEntity<>(usuario, HttpStatus.OK);
     }

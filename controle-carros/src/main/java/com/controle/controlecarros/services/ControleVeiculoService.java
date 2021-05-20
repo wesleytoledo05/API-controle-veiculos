@@ -29,15 +29,28 @@ public class ControleVeiculoService {
             veiculoNovo.setAno(veiculo.getAno());
             veiculoNovo.setMarca(veiculo.getMarca());
             veiculoNovo.setModelo_veiculo(veiculo.getModelo_veiculo());
-            //veiculoNovo.setValor(calculavalor()); ////Aqui entrara  a função que calcula o valor de acordo com a tabela fipe
+            // veiculoNovo.setValor(calculavalor()); ////Aqui entrara a função que calcula o
+            // valor de acordo com a tabela fipe
 
             veiculoRepo.save(veiculoNovo);
             usuarioExistente.get().getVeiculo().add(veiculoNovo);
 
             return veiculoNovo;
         } else {
-            
+
             throw new Exception();
         }
     }
+
+    public Usuario postUsuario(Usuario usuario) throws Exception {
+        Optional<Usuario> usuarioCpfExistente = usuarioRepo.findByCpf(usuario.getCpf());
+        Optional<Usuario> usuarioEmailExistente = usuarioRepo.findByEmail(usuario.getEmail());
+
+        if (usuarioCpfExistente.isPresent() || usuarioEmailExistente.isPresent()) {
+            throw new Exception("CPF ou EMAIL duplicado");
+        } else {
+            return usuarioRepo.save(usuario);
+        }
+    }
+
 }

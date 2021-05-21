@@ -32,4 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-../data/h2db.mv.db
+data/**
+data/h2veiculos.mv.db
+data/h2db.mv.db

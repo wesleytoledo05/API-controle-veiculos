@@ -6,10 +6,8 @@ import javax.validation.Valid;
 
 import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.FipeResposta;
-// import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.Veiculo;
 import com.controle.controlecarros.services.ControleVeiculoService;
-// import com.controle.controlecarros.services.FipeService;
 import com.controle.controlecarros.services.FipeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

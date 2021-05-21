@@ -1,6 +1,5 @@
 package com.controle.controlecarros.entidades;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +18,11 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-    
+
     @Id
     @NotNull(message = "{cpf.not.null}")
     @NotEmpty(message = "{cpf.not.empty}")
@@ -46,12 +43,23 @@ public class Usuario {
     @Column(name = "data_nascimento", nullable = false)
     private Date data_nascimento;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @JsonManagedReference
-    private List<Veiculo> veiculo = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REMOVE })
 
-    public Usuario(){
-        
+    @JsonManagedReference
+    private List<Veiculo> veiculo = new ArrayList<Veiculo>();
+
+    public Usuario() {
+        super();
+    }
+
+    public Usuario(String cpf, String nome, String email, Date data_nascimento, List<Veiculo> veiculo) {
+        super();
+        this.cpf = cpf;
+        this.nome = nome;
+        this.email = email;
+        this.data_nascimento = data_nascimento;
+        this.veiculo = veiculo;
     }
 
     public List<Veiculo> getVeiculo() {
@@ -61,7 +69,6 @@ public class Usuario {
     public void setVeiculo(List<Veiculo> veiculo) {
         this.veiculo = veiculo;
     }
-
 
     public String getNome() {
         return nome;
@@ -94,8 +101,5 @@ public class Usuario {
     public void setData_nascimento(Date data_nascimento) {
         this.data_nascimento = data_nascimento;
     }
-    
+
 }
-
-
-  

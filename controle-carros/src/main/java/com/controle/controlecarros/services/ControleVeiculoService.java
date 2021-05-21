@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.Usuario;
 import com.controle.controlecarros.entidades.Veiculo;
+import com.controle.controlecarros.error.ResourceNotFoundException;
 import com.controle.controlecarros.repositorio.UsuarioRepositorio;
 import com.controle.controlecarros.repositorio.VeiculoRepositorio;
 
@@ -29,7 +30,8 @@ public class ControleVeiculoService {
 
         if (usuarioExistente.isPresent()) {
             Veiculo veiculoNovo = new Veiculo();
-            Caracteristicas caracteristicas = fipeService.buscaValor(veiculo.getMarca(), veiculo.getModelo_veiculo(), veiculo.getAno());
+            Caracteristicas caracteristicas = fipeService.buscaValor(veiculo.getMarca(), veiculo.getModelo_veiculo(),
+                    veiculo.getAno());
 
             veiculoNovo.setUsuario(usuarioExistente.get());
             veiculoNovo.setAno(caracteristicas.getAno());
@@ -38,7 +40,7 @@ public class ControleVeiculoService {
             veiculoNovo.setValor(caracteristicas.getValor());
 
             veiculoRepo.save(veiculoNovo);
-            
+
             usuarioExistente.get().getVeiculo().add(veiculoNovo);
 
             return veiculoNovo;
@@ -47,7 +49,6 @@ public class ControleVeiculoService {
             throw new Exception();
         }
     }
-
 
     public Usuario postUsuario(Usuario usuario) throws Exception {
         Optional<Usuario> usuarioCpfExistente = usuarioRepo.findByCpf(usuario.getCpf());
@@ -58,6 +59,13 @@ public class ControleVeiculoService {
         } else {
             return usuarioRepo.save(usuario);
         }
+    }
+
+    public Usuario buscaPorCpf(String cpf) throws Exception {
+       
+        return usuarioRepo.findByCpf(cpf)
+                .orElseThrow(() -> new ResourceNotFoundException("Nao existe um usuário com o CPF = " + cpf));
+
     }
 
 }

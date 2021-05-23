@@ -1,4 +1,4 @@
-package com.controle.controlecarros.repositorio;
+package com.controle.controlecarros.repositorios;
 
 
 import java.util.Optional;

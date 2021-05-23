@@ -5,12 +5,13 @@ import java.util.Optional;
 import com.controle.controlecarros.entidades.Caracteristicas;
 import com.controle.controlecarros.entidades.Usuario;
 import com.controle.controlecarros.entidades.Veiculo;
-import com.controle.controlecarros.error.ResourceNotFoundException;
-import com.controle.controlecarros.repositorio.UsuarioRepositorio;
-import com.controle.controlecarros.repositorio.VeiculoRepositorio;
+import com.controle.controlecarros.repositorios.UsuarioRepositorio;
+import com.controle.controlecarros.repositorios.VeiculoRepositorio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javassist.NotFoundException;
 
 @Service
 public class ControleVeiculoService {
@@ -45,8 +46,8 @@ public class ControleVeiculoService {
 
             return veiculoNovo;
         } else {
-
-            throw new Exception();
+            throw new Exception(
+                    "Não foi possivel localizar o usuario informado para o cpf: " + veiculo.getUsuario().getCpf());
         }
     }
 
@@ -61,10 +62,14 @@ public class ControleVeiculoService {
         }
     }
 
-    public Usuario buscaPorCpf(String cpf) throws Exception {
-       
-        return usuarioRepo.findByCpf(cpf)
-                .orElseThrow(() -> new ResourceNotFoundException("Nao existe um usuário com o CPF = " + cpf));
+    public Optional<Usuario> buscaPorCpf(String cpf) throws NotFoundException {
+        Optional<Usuario> usuarioCpfExistente = usuarioRepo.findByCpf(cpf);
+     
+        if (usuarioCpfExistente.isPresent()) {
+            return usuarioCpfExistente;
+        } else {
+            throw new NotFoundException("Nao existe um usuário com o CPF = " + cpf);
+        }
 
     }
 

@@ -1,10 +1,11 @@
 package com.controle.controlecarros.controler;
 
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import com.controle.controlecarros.entidades.Usuario;
+import com.controle.controlecarros.error.ResourceNotFoundException;
+import com.controle.controlecarros.repositorios.UsuarioRepositorio;
 import com.controle.controlecarros.services.ControleVeiculoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javassist.NotFoundException;
 
 @RestController
 @RequestMapping({ "/usuario" })
@@ -25,6 +25,9 @@ public class UsuarioController {
 
   @Autowired
   private ControleVeiculoService controleService;
+
+  @Autowired
+  private UsuarioRepositorio usuarioRepo;
 
   @PostMapping(consumes = { "application/json" })
   public ResponseEntity<Usuario> adicionaUsuario(@Valid @RequestBody Usuario usuario) {
@@ -38,10 +41,11 @@ public class UsuarioController {
   }
 
   @GetMapping("/{cpf}")
-  public ResponseEntity<Optional<Usuario>> usuarioPorCpf(@PathVariable String cpf) throws NotFoundException {
+  public ResponseEntity<Usuario> getUsuarioscpf(@Valid @PathVariable String cpf) {
+    Usuario usuario = usuarioRepo.findByCpf(cpf)
+        .orElseThrow(() -> new ResourceNotFoundException("Usuário com o CPF " + cpf + " não encontrado!"));
 
-      Optional<Usuario> usuarioResp = controleService.buscaPorCpf(cpf);
-      return new ResponseEntity<>(usuarioResp, HttpStatus.OK);
+    return new ResponseEntity<>(usuario, HttpStatus.OK);
 
   }
 

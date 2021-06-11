@@ -3,7 +3,6 @@ package com.controle.controlecarros.entidades;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 public class Caracteristicas implements Serializable  {
     
     @JsonProperty("Marca")

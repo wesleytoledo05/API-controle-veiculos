@@ -13,10 +13,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
-@RestControllerAdvice
+@RestControllerAdvice //tratar exceções 
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {//
 
-  //Esception que acontece quando se chama uma rota que nao existe
+  //retornar um erro quando uma rota que nao existe
   @Override
   public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
   HttpStatus status, WebRequest request) {
@@ -27,8 +27,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     return handleExceptionInternal(ex, errorDetails, headers, HttpStatus.NOT_FOUND, request);
   }
 
-  // Verifica se os campos estao validos, ou seja, se nao estao vazios ou nulos
-  // por exemplo
+  // Verifica se os campos estao validos(nulo ou vazio)
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
       HttpStatus status, WebRequest request) {
@@ -39,7 +38,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
   }
 
 
-  //Esception que acontece quando o body do JSON esta mal formatado ou possui campos mal formatados
+  // Retorna um erro quando o campo do JSON esta mal formatado
   @Override
   protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
       HttpStatus status, WebRequest request) {

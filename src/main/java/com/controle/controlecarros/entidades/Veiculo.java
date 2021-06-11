@@ -27,16 +27,16 @@ public class Veiculo {
     @Column(name = "id", nullable = false, unique = true)
     private long id;
 
-    @NotNull(message = "{marca.not.null}")
-    @NotEmpty(message = "{marca.not.empty}")
+    @NotNull(message = "Marca não pode ser nulo.")
+    @NotEmpty(message = "Marca não pode ser vazio.")
     private String marca;
 
-    @NotNull(message = "{modelo_veiculo.not.null}")
-    @NotEmpty(message = "{modelo_veiculo.not.empty}")
+    @NotNull(message = "Modelo do veículo não pode ser nulo.")
+    @NotEmpty(message = "Modelo do veículo não pode ser vazio.")
     private String modelo_veiculo;
 
-    @NotNull(message = "{ano.Not.Null}")
-    @NotEmpty(message = "{ano.Not.Empty}")
+    @NotNull(message = "Ano não pode ser nulo.")
+    @NotEmpty(message = "Ano não pode ser vazio.")
     private String ano;
 
     private String valor;
@@ -94,6 +94,14 @@ public class Veiculo {
 
     public String getValor() {
         return valor;
+    }
+
+    public void setDiaDeRotacao(String diaDeRotacao) {
+        this.diaDeRotacao = diaDeRotacao;
+    }
+
+    public void setRotacaoAtiva(boolean rotacaoAtiva) {
+        this.rotacaoAtiva = rotacaoAtiva;
     }
 
     public void setValor(String valor) {

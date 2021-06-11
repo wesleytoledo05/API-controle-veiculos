@@ -24,29 +24,29 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Usuario {
 
     @Id
-    @NotNull(message = "{cpf.not.null}")
-    @NotEmpty(message = "{cpf.not.empty}")
+    @NotNull(message = "CPF não pode ser nulo.")
+    @NotEmpty(message = "CPF não pode ser vazio.")
     @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
 
-    @NotNull(message = "{nome.not.null}")
-    @NotEmpty(message = "{nome.not.empty}")
+    @NotNull(message = "Nome não pode ser nulo.")
+    @NotEmpty(message = "Nome não pode ser vazio.")
     private String nome;
 
     @Email
-    @NotNull(message = "{email.not.null}")
-    @NotEmpty(message = "{email.not.empty}")
+    @NotNull(message = "Email não pode ser nulo.")
+    @NotEmpty(message = "Email não pode ser vazio.")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @NotNull(message = "{data_nascimento.not.null}")
+    @NotNull(message = "Data de nascimento não pode ser nulo.")
     @Column(name = "data_nascimento", nullable = false)
     private Date data_nascimento;
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REMOVE })
 
-    @JsonManagedReference
+    @JsonManagedReference 
     private List<Veiculo> veiculo = new ArrayList<Veiculo>();
 
     public Usuario() {

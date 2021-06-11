@@ -1,7 +1,7 @@
 package com.controle.controlecarros.error;
 
 import java.util.Date;
-
+//Editar erro
 public class ErrorMessage {
   private int statusCode;
   private Date timestamp;

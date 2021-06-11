@@ -28,7 +28,7 @@ public class ControleVeiculoService {
     public Veiculo postCar(Veiculo veiculo) throws Exception {
 
         Optional<Usuario> usuarioExistente = usuarioRepo.findByCpf(veiculo.getUsuario().getCpf());
-
+        //se existir o usuario, ele cadastra o veiculo e retorna os atributos
         if (usuarioExistente.isPresent()) {
             Veiculo veiculoNovo = new Veiculo();
             Caracteristicas caracteristicas = fipeService.buscaValor(veiculo.getMarca(), veiculo.getModelo_veiculo(),
